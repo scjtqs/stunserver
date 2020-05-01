@@ -1,5 +1,6 @@
 FROM ubuntu:18.04 as build
 
+RUN sed -i "s/ports.ubuntu.com/mirrors.tuna.tsinghua.edu.cn/g" /etc/apt/sources.list
 RUN set -ex && \
     apt-get update && \
     apt-get install -y build-essential && \
@@ -14,6 +15,9 @@ RUN set -ex && \
 RUN cd /opt && git clone https://github.com/jselbie/stunserver.git && cd stunserver && make
 
 FROM ubuntu:18.04
+
+RUN sed -i "s/archive.ubuntu.com/mirrors.tuna.tsinghua.edu.cn/g" /etc/apt/sources.list
+RUN sed -i "s/security.ubuntu.com/mirrors.tuna.tsinghua.edu.cn/g" /etc/apt/sources.list
 
 EXPOSE 3478/tcp 3478/udp
 
